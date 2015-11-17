@@ -38,7 +38,7 @@ model.</p></li>
 
 <ol>
 <li>Press File &gt; Import Project</li>
-<li>Navigate to and choose the settings.gradle file in this project</li>
+<li>Navigate to and choose the build.gradle file in this project</li>
 <li>Press OK</li>
 </ol></li>
 <li><p>Add your debug keystore to the project (save it as android/debug.keystore),
