@@ -15,14 +15,10 @@ android {
         def(versionMajor, versionMinor, versionPatch) = fullVersionTag.tokenize('.')
         versionName "$versionMajor.$versionMinor.$versionPatch($versionBuild)"
 
-        // Turn the version name into a version code
         versionCode versionMajor.toInteger() * 100000 +
                 versionMinor.toInteger() * 10000 +
                 versionPatch.toInteger() * 1000 +
                 versionBuild.toInteger()
-
-        printf("\n--------" + "VERSION DATA--------" + "\n" + "- CODE: " + versionCode + "\n" +
-                "- NAME: " + versionName + "\n----------------------------\n")
 
     }
     buildTypes {
