@@ -36,6 +36,6 @@ script:
   - echo "Start TestLint
   - ./gradlew app:lint
   - echo "Debug"
-  - ./gradlew clean assembleDebug
+  - ./gradlew assembleDebug
 
 
