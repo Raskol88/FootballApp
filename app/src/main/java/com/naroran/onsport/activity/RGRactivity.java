@@ -83,10 +83,11 @@ public class RGRactivity extends BaseActivity{
         if (valid){
             Toast.makeText(getBaseContext(), "Success", Toast.LENGTH_LONG).show();
             text.setText("Success");
+            datas.add(time/1000);
             setProgressBarVisibility(View.GONE);
         }
         else{
-            Toast.makeText(getBaseContext(), "Error, time = "+time, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Error, time = "+time/1000, Toast.LENGTH_LONG).show();
             datas.add(time/1000);
             if (time == 1) {
                 time = 5000;

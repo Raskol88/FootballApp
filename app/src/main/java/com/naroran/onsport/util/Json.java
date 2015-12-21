@@ -50,6 +50,24 @@ public class Json {
         }
     }
 
+    public static void parseJsonNewsNew(List<PostItem> items, JSONObject response) {
+        List<PostItem> test = new ArrayList<PostItem>();
+        parseJsonNews(test, response);
+        for (PostItem item: test){
+            boolean valid = true;
+            for (PostItem item2: items){
+                if (item.getImge().contains(item2.getImge())){
+                    valid = false;
+                }
+            }
+            if (valid){
+                Log.d("ANDIS", "Item");
+                items.add(item);
+            }
+        }
+
+    }
+
     public static void parseJsonScore(List<ScoreItem> items, JSONObject response) {
 
         try {

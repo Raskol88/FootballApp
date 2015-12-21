@@ -119,7 +119,6 @@ public class CategorySelectionFragment extends Fragment implements AbsListView.O
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(AppController.getInstance().URL_NEWS+"0");
         if (entry != null) {
-            Log.d("ANDIS", "CATCH");
             try {
                 String data = new String(entry.data, "UTF-8");
                 try {
@@ -166,7 +165,35 @@ public class CategorySelectionFragment extends Fragment implements AbsListView.O
     }
 
     private void refreshContent(){
-        hideRefresh();
+        CacheRequest cacheRequest = new CacheRequest(Request.Method.GET, AppController.getInstance().URL_NEWS+"0", new Response.Listener<NetworkResponse>() {
+            @Override
+            public void onResponse(NetworkResponse response) {
+                VolleyLog.d(TAG, "Response: " + response.toString());
+                try {
+                    final String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+                    hideRefresh();
+                    if (jsonString != null) {
+                        Log.d("ANDIS", "Start Transfer");
+                        JSONObject jsonObject = new JSONObject(jsonString);
+
+                        Json.parseJsonNewsNew(postItems, jsonObject);
+                        listAdapter.notifyDataSetChanged();
+                        ((MainActivity) getActivity()).setProgressBarVisibility(View.GONE);
+                    }
+                } catch (UnsupportedEncodingException | JSONException e) {
+                    hideRefresh();
+
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        });
+        AppController.getInstance().addToRequestQueue(cacheRequest);
+
     }
 
     private void hideRefresh(){

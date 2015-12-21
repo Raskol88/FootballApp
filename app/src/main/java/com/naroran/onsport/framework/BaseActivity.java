@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        ((TextView) navigationView.findViewById(R.id.textViewVersion)).setText(getApplicationVersion());
+       ((TextView) navigationView.findViewById(R.id.textViewVersion)).setText(getApplicationVersion());
 
     }
 
