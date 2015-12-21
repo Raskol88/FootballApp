@@ -1,5 +1,10 @@
 language: android
 jdk: oraclejdk7
+
+
+before_install:
+ - chmod +x gradlew
+
 env:
   matrix:
     - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
@@ -7,6 +12,7 @@ env:
 android:
   components:
     - build-tools-19.0.0
+
 
 before_script:
   # Create and start emulator
