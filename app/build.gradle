@@ -13,7 +13,15 @@ android {
         applicationId "com.naroran.onsport"
         testApplicationId "com.naroran.onsport.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        def longVersionName = "git -C ${rootDir} describe --tags --long".execute().text.trim()
+        def (fullVersionTag, versionBuild, gitSha) = longVersionName.tokenize('-')
+        def(versionMajor, versionMinor, versionPatch) = fullVersionTag.tokenize('.')
+        versionName "$versionMajor.$versionMinor.$versionPatch($versionBuild)"
 
+        versionCode versionMajor.toInteger() * 100000 +
+                versionMinor.toInteger() * 10000 +
+                versionPatch.toInteger() * 1000 +
+                versionBuild.toInteger()
     }
     sourceSets {
         instrumentTest.setRoot('src/test')
