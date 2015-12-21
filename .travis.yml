@@ -32,8 +32,10 @@ before_script:
 
 script: 
   - echo "Start Test"
-  ./gradlew connectedAndroidTest
-    - echo "Start TestLint
-  ./gradlew app:lint
+  - ./gradlew connectedAndroidTest
+  - echo "Start TestLint
+  - ./gradlew app:lint
+  - echo "Debug"
+  - ./gradlew clean assembleDebug
 
 
