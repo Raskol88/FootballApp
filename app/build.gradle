@@ -1,0 +1,59 @@
+
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.naroran.onsport"
+        minSdkVersion 15
+        targetSdkVersion 23
+        applicationId "com.naroran.onsport"
+        testApplicationId "com.naroran.onsport.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        def longVersionName = "git -C ${rootDir} describe --tags --long".execute().text.trim()
+        def (fullVersionTag, versionBuild, gitSha) = longVersionName.tokenize('-')
+        def(versionMajor, versionMinor, versionPatch) = fullVersionTag.tokenize('.')
+        versionName "$versionMajor.$versionMinor.$versionPatch($versionBuild)"
+
+        versionCode versionMajor.toInteger() * 100000 +
+                versionMinor.toInteger() * 10000 +
+                versionPatch.toInteger() * 1000 +
+                versionBuild.toInteger()
+    }
+    sourceSets {
+        instrumentTest.setRoot('src/test')
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // required if you want to use Mockito for Android instrumentation tests
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'org.mockito:mockito-core:1.+'
+    androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+    androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.+'
+
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.jjoe64:graphview:4.0.1'
+    compile files('libs/volley.jar')
+
+    androidTestCompile 'junit:junit:4.12'
+
+    instrumentTestCompile ('org.mockito:mockito-core:1.9.0') {
+        exclude group: 'org.hamcrest'
+    }
+}
